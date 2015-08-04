@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="  
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- 数据库连接池c3p0配置 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="jdbcUrl" value="${db.url}"></property>
+		<property name="driverClass" value="${db.driverClassName}"></property>
+		<property name="user" value="${db.username}"></property>
+		<property name="password" value="${db.password}"></property>
+		<property name="maxPoolSize" value="40"></property>
+		<property name="minPoolSize" value="1"></property>
+		<property name="initialPoolSize" value="1"></property>
+		<property name="maxIdleTime" value="20"></property>
+	</bean>
+
+	<!-- session工厂 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+
+		<!-- 直接配置hibernate的相关属性，不需要hibernate.cfg.xml -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<!-- 显示sql语句 -->
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<!-- 最常用的属性，第一次加载hibernate时根据model类会自动建立起表的结构（前提是先建立好数据库）， 以后加载hibernate时根据 
+					model类自动更新表结构，即使表结构改变了但表中的行仍然存在不会删除以前的行。 要注意的是当部署到服务器后，表结构是不会被马上建立起来的，是要等 
+					应用第一次运行起来后才会。 -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<property name="mappingLocations">
+			<list>
+				<value>classpath*:com/lhl/sw/po/*.hbm.xml</value>
+				<!-- <value>com/lhl/sw/po/Application.hbm.xml</value>
+				<value>com/lhl/sw/po/CheckBack.hbm.xml</value>
+				<value>com/lhl/sw/po/AttendType.hbm.xml</value>
+				<value>com/lhl/sw/po/Attend.hbm.xml</value>
+				<value>com/lhl/sw/po/Payment.hbm.xml</value> -->
+			</list>
+		</property>
+		<!-- <property name="packagesToScan" value="com.bufoon.entity" /> -->
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!---改为annotation方式 <bean id="baseDao" class="com.bufoon.dao.impl.BaseDAOImpl"> 
+		<property name="sessionFactory" ref="sessionFactory" /> </bean> <bean id="userService" 
+		class="com.bufoon.service.user.impl.UserServiceImpl"> <property name="baseDAO" 
+		ref="baseDao" /> </bean> <bean id="loginAction" class="com.bufoon.action.LoginAction" 
+		scope="prototype"> <property name="userService" ref="userService" /> </bean> -->
+</beans>
