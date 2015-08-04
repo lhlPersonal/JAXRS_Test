@@ -4,14 +4,14 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 	<display-name>JAXRS_Test</display-name>
-<!-- 	<servlet>
+	<servlet>
 		<servlet-name>com.lhl.sw.restful.AppConfig</servlet-name>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>com.lhl.sw.restful.AppConfig</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
- -->
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:spring_jpa.xml</param-value>
