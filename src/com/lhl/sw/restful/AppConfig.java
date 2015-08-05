@@ -1,9 +1,7 @@
 package com.lhl.sw.restful;
 
 import org.glassfish.jersey.server.ResourceConfig;
-import org.springframework.web.filter.RequestContextFilter;
-
-import com.lhl.sw.service.impl.EmpSerivceImpl;
+import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 
 public class AppConfig extends ResourceConfig {
 	/**
@@ -11,7 +9,9 @@ public class AppConfig extends ResourceConfig {
 	 */
 
 	public AppConfig() {
-		register(RequestContextFilter.class);
+	//	register(RequestContextFilter.class);
 		register(EmpRestService.class);
+		// register features
+		// register(JacksonFeature.class);
 	}
 }

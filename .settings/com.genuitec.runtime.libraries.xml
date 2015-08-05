@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+  <container path="com.genuitec.runtime.library/com.genuitec.jaxrs_jersey_2.0">
+    <jar-attrs id="lib/jersey/2.4/server/jersey-container-servlet-core-2.4.jar">
+      <attribute name="javadoc_location"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source_encoding" value="UTF-8"/>
+      <attribute name="source-path" value="C:\Myeclipse2015\binary\com.sun.java.jdk7.win32.x86_64_1.7.0.u45\src.zip"/>
+    </jar-attrs>
+  </container>
+</project>

@@ -1,5 +1,7 @@
 package com.lhl.test;
 
+import java.util.Arrays;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -13,10 +15,9 @@ public class JAXTest {
 		ApplicationContext app = new ClassPathXmlApplicationContext(
 				"spring_jpa.xml");
 
-		EmpService emp = app.getBean(EmpService.class);
-		emp.autoPay();
-
-		EmpRestService emp1 = (EmpRestService) app.getBean("empRest");
-		System.out.println(emp1.restTest1("ffff"));
+		Arrays.asList(app.getBeanDefinitionNames()).forEach((b) -> {
+			System.out.println(b);
+		});
+		;
 	}
 }
