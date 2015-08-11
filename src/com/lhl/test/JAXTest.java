@@ -18,6 +18,5 @@ public class JAXTest {
 		Arrays.asList(app.getBeanDefinitionNames()).forEach((b) -> {
 			System.out.println(b);
 		});
-		;
 	}
 }
